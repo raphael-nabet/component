@@ -31,7 +31,7 @@ import time
 import sys
 from omniORB import CORBA, PortableServer
 import CosNaming
-import Engines, Engines__POA
+from salome.kernel import Engines, Engines__POA
 import SuperVisionTest, SuperVisionTest__POA
 from SALOME_ComponentPy import *
 
@@ -142,6 +142,6 @@ class SyrControlComponent( SuperVisionTest__POA.SyrControlComponent, SALOME_Comp
         print("SyrControlComponent::__init__",dir(self.Syr))
 
     def getVersion( self ):
-        import salome_version
+        from salome.kernel import salome_version
         return salome_version.getVersion("COMPONENT", True)
 

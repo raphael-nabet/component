@@ -30,7 +30,7 @@
 import sys
 from omniORB import CORBA, PortableServer
 import CosNaming
-import Engines, Engines__POA
+from salome.kernel import Engines, Engines__POA
 import SuperVisionTest, SuperVisionTest__POA
 from SALOME_ComponentPy import *
 
@@ -72,7 +72,7 @@ class FactorialComponent( SuperVisionTest__POA.FactorialComponent, SALOME_Compon
         return s
     
     def getVersion( self ):
-        import salome_version
+        from salome.kernel import salome_version
         return salome_version.getVersion("COMPONENT", True)
 
     def __init__(self, orb, poa, this, containerName, instanceName, interfaceName):
