@@ -64,8 +64,10 @@ ADD_LIBRARY(UndefinedSymbolComponentEngine ${UndefinedSymbolComponentEngine_SOUR
 TARGET_LINK_LIBRARIES(UndefinedSymbolComponentEngine ${_link_LIBRARIES} )
 IF(APPLE)
   # This component deliberately references an undefined symbol (CallUndefined):
-  # the macOS linker refuses that for a dylib unless lookup is deferred to load time
-  SET_TARGET_PROPERTIES(UndefinedSymbolComponentEngine PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+  # the macOS linker refuses that for a dylib unless lookup is deferred to load
+  # time. Only this symbol is allowed to be undefined (-U), so that any other
+  # missing dependency is still reported at link time.
+  SET_PROPERTY(TARGET UndefinedSymbolComponentEngine APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-U,_CallUndefined")
 ENDIF()
 INSTALL(TARGETS UndefinedSymbolComponentEngine EXPORT ${PROJECT_NAME}TargetGroup DESTINATION ${SALOME_INSTALL_LIBS})
 
